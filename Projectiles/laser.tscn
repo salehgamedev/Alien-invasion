@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://csu03xgvcjmni"]
+
+[ext_resource type="Texture2D" uid="uid://htrbf32ll7nu" path="res://Projectiles/Art/projectiles.png" id="1_rgfps"]
+
+[sub_resource type="GDScript" id="GDScript_rgfps"]
+script/source = "extends Node2D
+
+
+@onready var direction: Vector2 = Vector2.from_angle(rotation-PI/2)
+const speed = 500
+
+func _ready():
+	$VisibleOnScreenNotifier2D.screen_exited.connect(queue_free)
+
+func _process(delta: float) -> void:
+	position += direction * delta * speed
+"
+
+[node name="Laser" type="Node2D" unique_id=886364272]
+script = SubResource("GDScript_rgfps")
+
+[node name="projectile" type="Sprite2D" parent="." unique_id=1004948555]
+position = Vector2(0, -2)
+texture = ExtResource("1_rgfps")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=2145886074]
