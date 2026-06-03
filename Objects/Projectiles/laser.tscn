@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://csu03xgvcjmni"]
 
-[ext_resource type="Texture2D" uid="uid://htrbf32ll7nu" path="res://Projectiles/Art/projectiles.png" id="1_rgfps"]
+[ext_resource type="Texture2D" uid="uid://htrbf32ll7nu" path="res://Objects/Projectiles/Art/projectiles.png" id="1_rgfps"]
 
 [sub_resource type="GDScript" id="GDScript_rgfps"]
 script/source = "extends Node2D

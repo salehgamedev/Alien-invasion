@@ -24,6 +24,10 @@ window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="canvas_items"
 
+[global_group]
+
+speed_booster="gives a directional speed boost when touched"
+
 [input]
 
 accelerate={
@@ -56,4 +60,4 @@ shoot={
 
 textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
-environment/defaults/default_clear_color=Color(0, 0, 0, 1)
+environment/defaults/default_clear_color=Color(0.019607844, 0.011764706, 0.09019608, 1)

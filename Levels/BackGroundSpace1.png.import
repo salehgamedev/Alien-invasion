@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://htrbf32ll7nu"
-path="res://.godot/imported/projectiles.png-d3fc77ff4e91d3c05c01675ae0fab551.ctex"
+uid="uid://cc44v8laslm2p"
+path="res://.godot/imported/BackGroundSpace1.png-d07bd10afc43271a9df4f7e3f3ebf049.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Projectiles/Art/projectiles.png"
-dest_files=["res://.godot/imported/projectiles.png-d3fc77ff4e91d3c05c01675ae0fab551.ctex"]
+source_file="res://Levels/BackGroundSpace1.png"
+dest_files=["res://.godot/imported/BackGroundSpace1.png-d07bd10afc43271a9df4f7e3f3ebf049.ctex"]
 
 [params]
 

@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://7ckukuf4hei"]
+
+[ext_resource type="Texture2D" uid="uid://dsmug3qonojhd" path="res://Objects/Asteroids/Art/AsteroidSmall.png" id="1_tacct"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iotdp"]
+radius = 8.0
+
+[node name="Asteroid" type="StaticBody2D" unique_id=645504495]
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=232686644]
+texture = ExtResource("1_tacct")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="." unique_id=200472520]
+visible = false
+shape = SubResource("CircleShape2D_iotdp")
