@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cg0vhe5chcny4"
-path="res://.godot/imported/white-ship.png-8cf1e8bca0edd55f2006a47d7f25a320.ctex"
+uid="uid://dvc7ke30omuh2"
+path="res://.godot/imported/RedThrutsterFlames2.png-e9ba07a8da55babb17fcd637c46c138e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Player/Art/white-ship.png"
-dest_files=["res://.godot/imported/white-ship.png-8cf1e8bca0edd55f2006a47d7f25a320.ctex"]
+source_file="res://Entities/Player/Art/RedThrutsterFlames2.png"
+dest_files=["res://.godot/imported/RedThrutsterFlames2.png-e9ba07a8da55babb17fcd637c46c138e.ctex"]
 
 [params]
 

@@ -1,9 +1,26 @@
 [gd_scene format=3 uid="uid://b51cumx3mkd2q"]
 
-[ext_resource type="Script" uid="uid://crwf10blv6s83" path="res://Entities/Player/ship.gd" id="1_3t55g"]
-[ext_resource type="Texture2D" uid="uid://cg0vhe5chcny4" path="res://Entities/Player/Art/white-ship.png" id="1_fgyqn"]
+[ext_resource type="Script" uid="uid://crwf10blv6s83" path="res://Entities/Player/Ship.gd" id="1_3t55g"]
+[ext_resource type="Texture2D" uid="uid://cg0vhe5chcny4" path="res://Entities/Player/Art/WhiteShip.png" id="1_fgyqn"]
 [ext_resource type="PackedScene" uid="uid://csu03xgvcjmni" path="res://Objects/Projectiles/laser.tscn" id="2_irbc0"]
-[ext_resource type="Texture2D" uid="uid://dvc7ke30omuh2" path="res://Entities/Player/Art/white-ship-thruster-flames.png" id="3_jgeui"]
+[ext_resource type="Texture2D" uid="uid://dvc7ke30omuh2" path="res://Entities/Player/Art/RedThrutsterFlames2.png" id="3_jgeui"]
+[ext_resource type="Texture2D" uid="uid://bnbs3pb56hf15" path="res://Entities/Player/Art/BlueThrusterFlames2.png" id="4_l1b4w"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3hs6y"]
+atlas = ExtResource("4_l1b4w")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i8tlx"]
+atlas = ExtResource("4_l1b4w")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_358hg"]
+atlas = ExtResource("4_l1b4w")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t8l66"]
+atlas = ExtResource("4_l1b4w")
+region = Rect2(24, 0, 8, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_irbc0"]
 atlas = ExtResource("3_jgeui")
@@ -25,6 +42,23 @@ region = Rect2(24, 0, 8, 8)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_3hs6y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i8tlx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_358hg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t8l66")
+}],
+"loop": true,
+"name": &"blue_flames",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_irbc0")
 }, {
 "duration": 1.0,
@@ -37,7 +71,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_vqvh6")
 }],
 "loop": true,
-"name": &"white ship",
+"name": &"red_flames",
 "speed": 10.0
 }]
 
@@ -48,6 +82,7 @@ radius = 3.1622777
 radius = 4.0
 
 [node name="Ship" type="CharacterBody2D" unique_id=2001033386 node_paths=PackedStringArray("ship_base", "thruster_flames", "collision_detector")]
+z_index = 5
 script = ExtResource("1_3t55g")
 ship_base = NodePath("ShipBase")
 thruster_flames = NodePath("ShipBase/ThrusterFlames")
@@ -60,9 +95,7 @@ texture = ExtResource("1_fgyqn")
 [node name="ThrusterFlames" type="AnimatedSprite2D" parent="ShipBase" unique_id=1360049170]
 position = Vector2(0, 5)
 sprite_frames = SubResource("SpriteFrames_3t55g")
-animation = &"white ship"
-frame = 1
-frame_progress = 0.95704454
+animation = &"red_flames"
 
 [node name="LeftMuzzle" type="Marker2D" parent="ShipBase" unique_id=781860826]
 position = Vector2(-1, -3)
@@ -84,3 +117,5 @@ monitorable = false
 [node name="Shape" type="CollisionShape2D" parent="CollisonDetector" unique_id=993328658]
 shape = SubResource("CircleShape2D_irbc0")
 debug_color = Color(0.19607843, 0.7176471, 0, 0.41960785)
+
+[connection signal="area_exited" from="CollisonDetector" to="." method="_on_collison_detector_area_exited"]

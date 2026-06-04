@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bk5wadmr2lp11"
-path="res://.godot/imported/SpeedBooster.png-d6d8f91eeeda209eb3a5c917a518f286.ctex"
+uid="uid://cg0vhe5chcny4"
+path="res://.godot/imported/WhiteShip.png-28ccedb6640eefd6845a79900ce9228d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Objects/Art/SpeedBooster.png"
-dest_files=["res://.godot/imported/SpeedBooster.png-d6d8f91eeeda209eb3a5c917a518f286.ctex"]
+source_file="res://Entities/Player/Art/WhiteShip.png"
+dest_files=["res://.godot/imported/WhiteShip.png-28ccedb6640eefd6845a79900ce9228d.ctex"]
 
 [params]
 

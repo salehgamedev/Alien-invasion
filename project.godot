@@ -27,6 +27,7 @@ window/stretch/mode="canvas_items"
 [global_group]
 
 speed_booster="gives a directional speed boost when touched"
+asteroid="celestial body that float around and can take damage and be destroyed"
 
 [input]
 
