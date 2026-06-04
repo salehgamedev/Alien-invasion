@@ -76,9 +76,10 @@ visible = false
 [node name="Objects" type="Node2D" parent="." unique_id=1398896932]
 
 [node name="SpeedBooster" parent="Objects" unique_id=690692475 instance=ExtResource("2_3anf8")]
-position = Vector2(225, 130)
+position = Vector2(243, 32)
 
-[node name="AsteroidGenerator" type="Node" parent="." unique_id=1797572147]
+[node name="AsteroidGenerator" type="Node" parent="." unique_id=1797572147 node_paths=PackedStringArray("player")]
 script = ExtResource("8_xcayt")
 PSAsteroidS = ExtResource("3_fhqol")
 PSAsteroidM = ExtResource("7_dl8mf")
+player = NodePath("../Ship")
