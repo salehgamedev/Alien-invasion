@@ -3,8 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bk5wadmr2lp11" path="res://Objects/SpeedBooster/Art/SpeedBooster.png" id="1_k7215"]
 
 [sub_resource type="GDScript" id="GDScript_k7215"]
-script/source = "class_name SpeedBooster
-extends Area2D
+script/source = "extends Area2D
 
 @export_category(\"configurations\")
 @export var speed_boost: float = 300.0
@@ -15,7 +14,6 @@ extends Area2D
 size = Vector2(12, 18)
 
 [node name="SpeedBooster" type="Area2D" unique_id=690692475 groups=["speed_booster"]]
-z_index = 2
 monitoring = false
 script = SubResource("GDScript_k7215")
 

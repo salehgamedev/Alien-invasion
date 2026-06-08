@@ -1,0 +1,181 @@
+[gd_scene format=3 uid="uid://dncpsfclkvwfm"]
+
+[ext_resource type="Script" uid="uid://dlwhx3315ppci" path="res://Entities/Alien/Alien.gd" id="1_i3liq"]
+[ext_resource type="Texture2D" uid="uid://cn5qsl2cyuedu" path="res://Entities/Alien/Art/GreenAlien.png" id="2_i3liq"]
+[ext_resource type="Script" uid="uid://cxly3b7tan3s3" path="res://Systems/AI/StateManager.gd" id="3_dxvqx"]
+[ext_resource type="Script" uid="uid://jswg6d3sxu1i" path="res://Systems/DamageBoxes/HurtBox/HurtBox.gd" id="4_c051t"]
+[ext_resource type="Script" uid="uid://bd1bpt8s3jnwa" path="res://Systems/AI/States/FleeState.gd" id="4_okcsw"]
+[ext_resource type="Script" uid="uid://dhx7xa0a7qf58" path="res://Systems/AI/States/WanderState.gd" id="5_okcsw"]
+[ext_resource type="Script" uid="uid://dwli2g6r53sj5" path="res://Systems/AI/States/CheckState.gd" id="6_l5ij1"]
+[ext_resource type="Texture2D" uid="uid://c4ad6e0xtssop" path="res://Entities/Suprise.png" id="7_2qlbs"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nngd6"]
+atlas = ExtResource("2_i3liq")
+region = Rect2(0, 10, 8, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sydth"]
+atlas = ExtResource("2_i3liq")
+region = Rect2(8, 10, 8, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bq78a"]
+atlas = ExtResource("2_i3liq")
+region = Rect2(16, 10, 8, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mtbeg"]
+atlas = ExtResource("2_i3liq")
+region = Rect2(24, 10, 8, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mbrdu"]
+atlas = ExtResource("2_i3liq")
+region = Rect2(16, 0, 8, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dxvqx"]
+atlas = ExtResource("2_i3liq")
+region = Rect2(24, 0, 8, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_okcsw"]
+atlas = ExtResource("2_i3liq")
+region = Rect2(0, 0, 8, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l5ij1"]
+atlas = ExtResource("2_i3liq")
+region = Rect2(0, 0, 8, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2qlbs"]
+atlas = ExtResource("2_i3liq")
+region = Rect2(8, 0, 8, 10)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0aa54"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nngd6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sydth")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bq78a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mtbeg")
+}],
+"loop": true,
+"name": &"back_flying",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mbrdu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dxvqx")
+}],
+"loop": true,
+"name": &"back_idle",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_okcsw")
+}],
+"loop": false,
+"name": &"front_flying",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l5ij1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2qlbs")
+}],
+"loop": true,
+"name": &"front_idle",
+"speed": 1.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2qlbs"]
+radius = 3.0
+
+[node name="Alien" type="CharacterBody2D" unique_id=121805212 node_paths=PackedStringArray("state_manager", "animation", "surprise", "alien_ray_cast", "asteroid_ray_cast", "player_ray_cast")]
+z_index = 9
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_i3liq")
+state_manager = NodePath("StateManager")
+animation = NodePath("GreenAlien")
+surprise = NodePath("GreenAlien/Surprise")
+alien_ray_cast = NodePath("RayCasts/AlienRayCast")
+asteroid_ray_cast = NodePath("RayCasts/AsteroidRayCast")
+player_ray_cast = NodePath("RayCasts/PlayerRayCast")
+max_health = 4
+
+[node name="GreenAlien" type="AnimatedSprite2D" parent="." unique_id=502354530]
+sprite_frames = SubResource("SpriteFrames_0aa54")
+animation = &"front_idle"
+autoplay = "front_idle"
+
+[node name="Surprise" type="Sprite2D" parent="GreenAlien" unique_id=1310235460]
+visible = false
+position = Vector2(0, -8)
+texture = ExtResource("7_2qlbs")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="." unique_id=801919068]
+visible = false
+position = Vector2(-0.5, 0.5)
+shape = SubResource("CircleShape2D_2qlbs")
+
+[node name="HurtBox" type="Area2D" parent="." unique_id=1742205295 node_paths=PackedStringArray("host")]
+visible = false
+collision_layer = 0
+collision_mask = 8
+monitorable = false
+script = ExtResource("4_c051t")
+host = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=1764374930]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("CircleShape2D_2qlbs")
+debug_color = Color(0, 0.6, 0.37254903, 0.41960785)
+
+[node name="RayCasts" type="Node2D" parent="." unique_id=941157444]
+visible = false
+
+[node name="AlienRayCast" type="RayCast2D" parent="RayCasts" unique_id=7362624]
+collision_mask = 4
+
+[node name="AsteroidRayCast" type="RayCast2D" parent="RayCasts" unique_id=458548748]
+collision_mask = 2
+
+[node name="PlayerRayCast" type="RayCast2D" parent="RayCasts" unique_id=584717925]
+collision_mask = 2
+
+[node name="StateManager" type="Node" parent="." unique_id=516170577 node_paths=PackedStringArray("wander", "flee", "check", "current_state")]
+script = ExtResource("3_dxvqx")
+wander = NodePath("WanderState")
+flee = NodePath("FleeState")
+check = NodePath("CheckState")
+current_state = NodePath("WanderState")
+
+[node name="WanderState" type="Node" parent="StateManager" unique_id=1456670213]
+script = ExtResource("5_okcsw")
+
+[node name="TimeMoving" type="Timer" parent="StateManager/WanderState" unique_id=614462346]
+one_shot = true
+
+[node name="TimeIdling" type="Timer" parent="StateManager/WanderState" unique_id=358634288]
+one_shot = true
+
+[node name="FleeState" type="Node" parent="StateManager" unique_id=235033149]
+script = ExtResource("4_okcsw")
+
+[node name="TimeTillRelaxed" type="Timer" parent="StateManager/FleeState" unique_id=119767634]
+wait_time = 4.0
+
+[node name="CheckState" type="Node" parent="StateManager" unique_id=167620869]
+script = ExtResource("6_l5ij1")
+
+[connection signal="timeout" from="StateManager/WanderState/TimeMoving" to="StateManager/WanderState" method="_on_time_moving_timeout"]
+[connection signal="timeout" from="StateManager/WanderState/TimeIdling" to="StateManager/WanderState" method="_on_time_idling_timeout"]
+[connection signal="timeout" from="StateManager/FleeState/TimeTillRelaxed" to="StateManager/FleeState" method="_on_time_till_relaxed_timeout"]

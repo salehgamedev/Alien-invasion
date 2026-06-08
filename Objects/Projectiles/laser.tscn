@@ -1,26 +1,27 @@
 [gd_scene format=3 uid="uid://csu03xgvcjmni"]
 
 [ext_resource type="Texture2D" uid="uid://htrbf32ll7nu" path="res://Objects/Projectiles/Art/projectiles.png" id="1_rgfps"]
+[ext_resource type="Script" uid="uid://bipsbgtqj6hu4" path="res://Systems/DamageBoxes/HitBox/HitBox.gd" id="2_l7470"]
 
 [sub_resource type="GDScript" id="GDScript_rgfps"]
 script/source = "extends Node2D
 
 
 @onready var direction: Vector2 = Vector2.from_angle(rotation-PI/2)
-@export var damage: int = 1
+@onready var projectile: Sprite2D = $projectile
+@onready var despawn_timer: Timer = $DespawnTimer
 const speed = 500
 
 func _ready():
-	$VisibleOnScreenNotifier2D.screen_exited.connect(queue_free)
+	despawn_timer.connect(\"timeout\", queue_free)
 
 func _process(delta: float) -> void:
-	position += direction * delta * speed
+	global_position += direction * delta * speed
+	projectile.position.y = (delta * speed)-2
 
-
-func _on_hurt_box_body_entered(body: Node2D) -> void:
-	if body.is_in_group(\"asteroid\"):
-		body.take_damage(damage, rotation)
-		call_deferred(\"queue_free\")
+func _on_collision_detector_body_entered(_body: Node2D) -> void:
+	visible = false
+	call_deferred(\"queue_free\")
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cf0ji"]
@@ -34,15 +35,31 @@ script = SubResource("GDScript_rgfps")
 position = Vector2(0, -2)
 texture = ExtResource("1_rgfps")
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=2145886074]
+[node name="DespawnTimer" type="Timer" parent="." unique_id=237945570]
+wait_time = 3.0
+one_shot = true
+autostart = true
 
-[node name="HurtBox" type="Area2D" parent="." unique_id=357694389]
-collision_layer = 0
-collision_mask = 2
+[node name="HitBox" type="Area2D" parent="." unique_id=357694389 groups=["hit_box"]]
+visible = false
+z_index = 1
+collision_layer = 8
+collision_mask = 0
+monitoring = false
+script = ExtResource("2_l7470")
 
-[node name="CollisionShape" type="CollisionShape2D" parent="HurtBox" unique_id=283765505]
+[node name="CollisionShape" type="CollisionShape2D" parent="HitBox" unique_id=283765505]
 position = Vector2(-1, -1)
 shape = SubResource("CircleShape2D_cf0ji")
 debug_color = Color(0.92156863, 0.3019608, 0.16862746, 0.41960785)
 
-[connection signal="body_entered" from="HurtBox" to="." method="_on_hurt_box_body_entered"]
+[node name="CollisionDetector" type="Area2D" parent="." unique_id=451735874]
+visible = false
+collision_layer = 0
+collision_mask = 6
+
+[node name="CollisionShape" type="CollisionShape2D" parent="CollisionDetector" unique_id=1928624798]
+position = Vector2(-1, -1)
+shape = SubResource("CircleShape2D_cf0ji")
+
+[connection signal="body_entered" from="CollisionDetector" to="." method="_on_collision_detector_body_entered"]

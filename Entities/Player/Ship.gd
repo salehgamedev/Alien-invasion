@@ -7,12 +7,13 @@ extends CharacterBody2D
 @export var throttle_accel: float = 200.0
 @export var idle_deccel: float = 40.0
 @export var max_throttle_speed: float = 100.0
+@export var shot_delay_time: float = 0.2
 @export_category("refrences")
 @export var ship_base: Sprite2D
-@export var thruster_flames: AnimatedSprite2D
 @export var laser: PackedScene
 @export var collision_detector: Area2D
 
+var shot_delay_timer: Timer
 var is_speedboosting: bool = false
 var ship_velocity: Vector2 = Vector2.ZERO
 var throttle_velocity: Vector2:
@@ -28,15 +29,21 @@ var turn_direction: float:
 	get:
 		return Input.get_axis("turn_left", "turn_right")
 
+func _ready() -> void:
+	shot_delay_timer = Timer.new()
+	shot_delay_timer.one_shot = true
+	shot_delay_timer.wait_time = shot_delay_time
+	add_child(shot_delay_timer)
+
 func _process(_delta: float) -> void:
-	thruster_flames.visible = Input.is_action_pressed("accelerate")
+	ship_base.thruster_flames.visible = Input.is_action_pressed("accelerate")
 	if (ship_velocity+throttle_velocity).length() > max_throttle_speed * 1.2:
-		thruster_flames.play("blue_flames")
-		thruster_flames.visible = true
+		ship_base.thruster_flames.play("blue_flames")
+		ship_base.thruster_flames.visible = true
 	else:
-		thruster_flames.play("red_flames")
+		ship_base.thruster_flames.play("red_flames")
 	
-	if Input.is_action_just_pressed("shoot"):
+	if Input.is_action_pressed("shoot") and shot_delay_timer.time_left == 0:
 		shoot()
 
 func _physics_process(delta: float) -> void:
@@ -56,14 +63,13 @@ func _physics_process(delta: float) -> void:
 
 func shoot() -> void:
 	var shot: Node2D = laser.instantiate()
-	shot.position = $ShipBase/LeftMuzzle.global_position
 	shot.rotation = rotation
-	var shot1 = shot.duplicate()
-	shot.position = $ShipBase/RightMuzzle.global_position
-	shot.scale.x = -1
-	var shot2 = shot.duplicate()
-	get_parent().call_deferred("add_child", shot1)
-	get_parent().call_deferred("add_child", shot2)
+	for muzzle in ship_base.muzzles:
+		shot.position = muzzle.global_position
+		shot.scale = muzzle.scale
+		var new_shot := shot.duplicate()
+		get_parent().call_deferred("add_child", new_shot)
+	shot_delay_timer.start()
 
 func apply_speed_booster_boost(delta: float) -> void:
 	for area in collision_detector.get_overlapping_areas():

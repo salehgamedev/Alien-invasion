@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://col6jhp7jgnfl"]
+
+[ext_resource type="Texture2D" uid="uid://cc44v8laslm2p" path="res://Levels/BackGroundSpace1.png" id="1_r8t3o"]
+[ext_resource type="Texture2D" uid="uid://dhytce5ypgt4e" path="res://Levels/BGSpaceFarStars.png" id="2_riwc5"]
+[ext_resource type="Texture2D" uid="uid://cl5nbw7iq7456" path="res://Levels/BGSpaceCloseStars.png" id="3_ykr6w"]
+[ext_resource type="PackedScene" uid="uid://b51cumx3mkd2q" path="res://Entities/Player/Ship.tscn" id="4_jdjj2"]
+[ext_resource type="PackedScene" uid="uid://ykqedo0gaqaa" path="res://Objects/SpeedBooster/SpeedBooster.tscn" id="5_1iavb"]
+[ext_resource type="PackedScene" uid="uid://dncpsfclkvwfm" path="res://Entities/Alien/Alien.tscn" id="6_riwc5"]
+[ext_resource type="Script" uid="uid://evxjypuvrngq" path="res://Systems/WorldGen/AsteroidGenerator.gd" id="6_ygbe6"]
+[ext_resource type="PackedScene" uid="uid://7ckukuf4hei" path="res://Objects/Asteroids/AsteroidSmall.tscn" id="7_6gccx"]
+[ext_resource type="PackedScene" uid="uid://cbfjwpde4bsh" path="res://Objects/Asteroids/AsteroidMid.tscn" id="8_6xhg0"]
+
+[sub_resource type="GDScript" id="GDScript_dl8mf"]
+script/source = "extends Node2D
+
+@export_category(\"refrences\")
+@export var player: PlayerShip
+@export var speedometer: Label
+
+#func _ready() -> void:
+	#if OS.is_debug_build():
+		#speedometer.visible = true
+
+func _process(_delta: float) -> void:
+	speedometer.text = str(int(round(player.velocity.length())), \"p/s\")
+"
+
+[node name="World" type="Node2D" unique_id=1662612838 node_paths=PackedStringArray("player", "speedometer")]
+script = SubResource("GDScript_dl8mf")
+player = NodePath("Ship")
+speedometer = NodePath("CanvasLayer/Speedometer")
+
+[node name="Alien" parent="." unique_id=121805212 instance=ExtResource("6_riwc5")]
+position = Vector2(134, 49)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1460140525]
+layer = 10
+
+[node name="Speedometer" type="Label" parent="CanvasLayer" unique_id=2119062136]
+visible = false
+offset_right = 42.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 8
+
+[node name="BackGround" type="Node2D" parent="." unique_id=1523338479]
+show_behind_parent = true
+position = Vector2(160, 90)
+
+[node name="BG" type="Parallax2D" parent="BackGround" unique_id=1862558240]
+repeat_size = Vector2(320, 180)
+repeat_times = 4
+
+[node name="BG" type="Sprite2D" parent="BackGround/BG" unique_id=1805757127]
+z_index = -2
+texture = ExtResource("1_r8t3o")
+
+[node name="FarStars" type="Parallax2D" parent="BackGround" unique_id=1005651713]
+scroll_scale = Vector2(0.015, 0.015)
+repeat_size = Vector2(320, 180)
+repeat_times = 4
+
+[node name="Stars" type="Sprite2D" parent="BackGround/FarStars" unique_id=904255777]
+z_index = -1
+texture = ExtResource("2_riwc5")
+
+[node name="CloseStars" type="Parallax2D" parent="BackGround" unique_id=721251011]
+scroll_scale = Vector2(0.12, 0.12)
+repeat_size = Vector2(320, 180)
+repeat_times = 4
+
+[node name="Stars" type="Sprite2D" parent="BackGround/CloseStars" unique_id=1789028228]
+texture = ExtResource("3_ykr6w")
+
+[node name="Ship" parent="." unique_id=2001033386 instance=ExtResource("4_jdjj2")]
+position = Vector2(160, 91)
+
+[node name="Camera2D" type="Camera2D" parent="Ship" unique_id=1180884836]
+visible = false
+
+[node name="Objects" type="Node2D" parent="." unique_id=1398896932]
+
+[node name="SpeedBooster" parent="Objects" unique_id=690692475 instance=ExtResource("5_1iavb")]
+position = Vector2(243, 32)
+
+[node name="AsteroidGenerator" type="Node" parent="." unique_id=1797572147 node_paths=PackedStringArray("player")]
+script = ExtResource("6_ygbe6")
+ASTEROID_S = ExtResource("7_6gccx")
+ASTEROID_M = ExtResource("8_6xhg0")
+player = NodePath("../Ship")

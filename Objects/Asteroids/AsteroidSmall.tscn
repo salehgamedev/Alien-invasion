@@ -6,9 +6,10 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_iotdp"]
 radius = 8.0
 
-[node name="AsteroidSmall" type="StaticBody2D" unique_id=645504495 groups=["asteroid"]]
+[node name="AsteroidSmall" type="StaticBody2D" unique_id=645504495]
 z_index = 4
-collision_layer = 3
+collision_layer = 2
+collision_mask = 7
 script = ExtResource("1_oydpk")
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=232686644]
