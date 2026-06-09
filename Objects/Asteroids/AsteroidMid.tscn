@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://cbfjwpde4bsh"]
 
 [ext_resource type="Script" uid="uid://d0ba3ngsw7d1r" path="res://Objects/Asteroids/AsteroidMid.gd" id="1_666ca"]
-[ext_resource type="Texture2D" uid="uid://dt5ntg7fds2dm" path="res://Objects/Asteroids/Art/AsteroidMid.png" id="1_dlunf"]
+[ext_resource type="Texture2D" uid="uid://b4fncmnktrwc6" path="res://Objects/Asteroids/Art/AsteroidMid.png" id="1_dlunf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2at3c"]
-radius = 16.0
+radius = 10.511898
 
 [node name="AsteroidMid" type="StaticBody2D" unique_id=238149483]
 z_index = 5
@@ -17,4 +17,5 @@ texture = ExtResource("1_dlunf")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="." unique_id=444291727]
 visible = false
+position = Vector2(0.5, 0.5)
 shape = SubResource("CircleShape2D_2at3c")

@@ -5,15 +5,17 @@ extends Node
 @export var chunk_size: int = 128
 @export var render_distance: int = 6
 @export var large_asteroid_rarity: float = 0.5
+@export var medium_asteroid_rarity: float = 0.35
 @export var small_asteroid_rarity: float = 0.2
 @export_category("refrences")
 @export var ASTEROID_S: PackedScene
 @export var ASTEROID_M: PackedScene
+@export var ASTEROID_L: PackedScene
 @export var player: PlayerShip
 var world_seed: int = randi()
 var rand_noise := FastNoiseLite.new()
 var generated_chunks: PackedVector2Array = [Vector2(1, 0)]
-enum AstroidSize {small, medium}
+enum AstroidSize {small, medium, large}
 
 
 func _ready() -> void:
@@ -32,18 +34,25 @@ func _generate_chunk(chunk_pos: Vector2i):
 	for x in range(chunk_pos.x*chunk_size, (chunk_pos.x+1)*chunk_size, 64):
 		for y in range(chunk_pos.y*chunk_size, (chunk_pos.y+1)*chunk_size, 64):
 			if rand_noise.get_noise_2d(x, y) > large_asteroid_rarity:
+				_spawn_asteroid(Vector2i(x, y), AstroidSize.large)
+			elif rand_noise.get_noise_2d(x, y) > medium_asteroid_rarity:
 				_spawn_asteroid(Vector2i(x, y), AstroidSize.medium)
 			elif rand_noise.get_noise_2d(x, y) > small_asteroid_rarity:
 				_spawn_asteroid(Vector2i(x, y), AstroidSize.small)
 
 func _spawn_asteroid(position: Vector2i, size: AstroidSize = AstroidSize.small) -> void:
 	var asteroid: Asteroid
+	var scale: float
 	if size == AstroidSize.small:
 		asteroid = ASTEROID_S.instantiate()
+		scale = randf_range(0.8, 1.2)
 	elif size == AstroidSize.medium:
 		asteroid = ASTEROID_M.instantiate()
+		scale = randf_range(1, 1.2)
+	elif size == AstroidSize.large:
+		asteroid = ASTEROID_L.instantiate()
+		scale = randf_range(1, 1.2)
 	
-	var scale = randf_range(0.8, 1.5)
 	asteroid.scale = Vector2(scale, scale)
 	asteroid.rotation_degrees = randi_range(0, 3) * 90
 	asteroid.position = position+Vector2i(randi_range(0, 32), randi_range(0, 32))

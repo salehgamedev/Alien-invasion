@@ -1,6 +1,6 @@
-class_name AsteroidMid
+class_name AsteroidLarge
 extends Asteroid
 
 
 func _ready() -> void:
-	health = 4
+	health = 6

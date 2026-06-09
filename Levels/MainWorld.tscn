@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://evxjypuvrngq" path="res://Systems/WorldGen/AsteroidGenerator.gd" id="6_ygbe6"]
 [ext_resource type="PackedScene" uid="uid://7ckukuf4hei" path="res://Objects/Asteroids/AsteroidSmall.tscn" id="7_6gccx"]
 [ext_resource type="PackedScene" uid="uid://cbfjwpde4bsh" path="res://Objects/Asteroids/AsteroidMid.tscn" id="8_6xhg0"]
+[ext_resource type="PackedScene" uid="uid://b58v68x86ppk8" path="res://Objects/Asteroids/AsteroidLarge.tscn" id="10_ykr6w"]
 
 [sub_resource type="GDScript" id="GDScript_dl8mf"]
 script/source = "extends Node2D
@@ -32,6 +33,21 @@ speedometer = NodePath("CanvasLayer/Speedometer")
 
 [node name="Alien" parent="." unique_id=121805212 instance=ExtResource("6_riwc5")]
 position = Vector2(134, 49)
+
+[node name="Alien2" parent="." unique_id=2112754146 instance=ExtResource("6_riwc5")]
+position = Vector2(213, 51)
+
+[node name="Alien3" parent="." unique_id=1935695970 instance=ExtResource("6_riwc5")]
+position = Vector2(108, 94)
+
+[node name="Alien4" parent="." unique_id=85464841 instance=ExtResource("6_riwc5")]
+position = Vector2(205, 86)
+
+[node name="Alien5" parent="." unique_id=1288556227 instance=ExtResource("6_riwc5")]
+position = Vector2(230, 51)
+
+[node name="Alien6" parent="." unique_id=489281070 instance=ExtResource("6_riwc5")]
+position = Vector2(298, 55)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1460140525]
 layer = 10
@@ -86,4 +102,5 @@ position = Vector2(243, 32)
 script = ExtResource("6_ygbe6")
 ASTEROID_S = ExtResource("7_6gccx")
 ASTEROID_M = ExtResource("8_6xhg0")
+ASTEROID_L = ExtResource("10_ykr6w")
 player = NodePath("../Ship")
